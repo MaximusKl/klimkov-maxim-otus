@@ -8,7 +8,7 @@ function maxItemAssociation(inputArray) {
   // Делаем несколько проходов по массиву групп до тех пор, пока не будет найдено ни одного совпадающего элемента
 
   // делаем копию исходного массива для создания групп ассоциаций
-  let associationArray = inputArray
+  let associationArray = Array.from(inputArray)
 
   // делам проходы по массиву до тех пор, пока находятся совпадающие элементы
   while (processAssociations(associationArray)) {}
