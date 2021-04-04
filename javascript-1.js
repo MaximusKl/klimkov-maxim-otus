@@ -43,9 +43,9 @@ function processAssociations(arr) {
     for (let j = i + 1; j < arr.length; j++) {
       // Если есть совпадающие элементы
       const foundElement = hasEqualElements(arr[i], arr[j])
-      if (foundElement !== '') {
+      if (foundElement) {
         // объединить найденные группы
-        arr[i] = [...arr[i], ...arr[j].filter((el) => el !== foundElement)]
+        arr[i] = [...arr[i], ...arr[j].filter(el => el !== foundElement)]
         // удаляем из масиива вторую группу
         arr.splice(j, 1)
         return true
@@ -62,12 +62,9 @@ function processAssociations(arr) {
 // Это нужно, чтобы убрать дубликацию элементов при объединении групп.
 function hasEqualElements(arr1, arr2) {
   for (let i = 0; i < arr1.length; i++) {
-    for (let j = 0; j < arr2.length; j++) {
-      if (arr1[i] === arr2[j]) {
-        return arr1[i]
-      }
+    const arr2element = arr2.find(el => el === arr1[i])
+    if (arr2element) {
+      return arr2element
     }
   }
-
-  return ''
 }
