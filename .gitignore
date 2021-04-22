@@ -1,5 +1,5 @@
 node_modules
 .idea
 .vscode
-.editorconfig
+
 package-lock.json
