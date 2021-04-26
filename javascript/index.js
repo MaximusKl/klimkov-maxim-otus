@@ -17,6 +17,8 @@ class MyLeaf extends HTMLElement {
 			case 'level':
 				this._level = newValue
 				break
+			default:
+				return // нет надобности перерисовывать
 		}
 		this.render()
 	}
@@ -27,7 +29,6 @@ class MyLeaf extends HTMLElement {
 
 	set tree_id(v) {
 		this.setAttribute('tree_id', v)
-		this.render()
 	}
 
 	get level() {
@@ -36,7 +37,6 @@ class MyLeaf extends HTMLElement {
 
 	set level(v) {
 		this.setAttribute('level', v)
-		this.render()
 	}
 
 	render() {
@@ -57,20 +57,20 @@ class MyTree extends MyLeaf {
 	}
 
 	static get observedAttributes() {
-		return ['tree_id', 'level', 'items']
+		return [...super.observedAttributes, 'items'] // добавляем аттрибут
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
+		// вызываем метод предка
+		super.attributeChangedCallback(name, oldValue, newValue)
+
+		// отрабатываем новые свойства
 		switch (name) {
-			case 'tree_id':
-				this._id = newValue
-				break
-			case 'level':
-				this._level = newValue
-				break
 			case 'items':
 				this._items = newValue
 				break
+			default:
+				return // нет надобности перерисовывать
 		}
 		this.render()
 	}
@@ -81,7 +81,6 @@ class MyTree extends MyLeaf {
 
 	set items(v) {
 		this.setAttribute('items', v)
-		this.render()
 	}
 
 	render() {
@@ -113,13 +112,13 @@ function addElement(baseElement, jsonData, level) {
 	if (jsonData.items) {
 		const newTree = document.createElement('my-tree')
 		newTree.tree_id = jsonData.id
-		newTree.level = +level
+		newTree.level = level
 		newTree.items = JSON.stringify(jsonData.items)
 		baseElement.appendChild(newTree)
 	} else {
 		const newLeaf = document.createElement('my-leaf')
 		newLeaf.tree_id = jsonData.id
-		newLeaf.level = +level
+		newLeaf.level = level
 		baseElement.appendChild(newLeaf)
 	}
 }
@@ -138,15 +137,15 @@ function createTree(data, selector) {
                     margin: 0;
                     font-size: 24px
                 }
-                span {
+                p > span {
                     background-color: cyan;
                     font-size: 20px;
-                    width: 60px;
                     display: inline-block;
                     text-align: center;
                     border: 1px solid blue;
                     border-radius: 10px;
                     margin-left: 5px;
+                    padding: 0 20px;
                 }
             </style>
             <h2>CustomElements tree</h2>
@@ -164,6 +163,10 @@ function createTree(data, selector) {
 }
 
 // Загрузка данных из JSON и вызов создания дерева
-loadJSON('./data.json').then(data => {
-	createTree(data, '#root')
-})
+loadJSON('./data.json')
+	.then(data => {
+		createTree(data, '#root')
+	})
+	.catch(error => {
+		alert(error)
+	})
