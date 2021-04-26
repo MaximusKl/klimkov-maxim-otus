@@ -53,7 +53,7 @@ class MyLeaf extends HTMLElement {
 class MyTree extends MyLeaf {
 	constructor() {
 		super()
-		this._items = '' // json-строка со массивом потомков
+		this._items = '' // json-строка с массивом потомков
 	}
 
 	static get observedAttributes() {
