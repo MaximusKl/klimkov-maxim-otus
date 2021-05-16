@@ -1,0 +1,31 @@
+{
+    "name": "klimkov-maxim-otus",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "dev": "nodemon --exec ts-node src/index.ts",
+        "start": "tsc && node dist/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MaximusKl/klimkov-maxim-otus.git"
+    },
+    "author": "Maxim Klimkov",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/MaximusKl/klimkov-maxim-otus/issues"
+    },
+    "homepage": "https://github.com/MaximusKl/klimkov-maxim-otus#readme",
+    "devDependencies": {
+        "nodemon": "^2.0.7",
+        "prettier": "^2.3.0",
+        "ts-node": "^9.1.1"
+    },
+    "dependencies": {
+        "@types/node": "^15.3.0",
+        "typescript": "^4.2.4"
+    }
+}
