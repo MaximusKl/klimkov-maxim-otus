@@ -19,17 +19,11 @@ export function maxItemAssociation(inputArray: Array<Pair>): NumbersArray {
 	associationArray.sort((a: NumbersArray, b: NumbersArray) => {
 		const comp = b.length - a.length
 		// если элементы разные по длине, возвращаем разницу
-		if (comp !== 0) {
-			return comp
-		}
+		if (comp !== 0) return comp
 
 		// если длина элементов равна, сравниваем по лексиграфическому признаку
-		if (a[0] < b[0]) {
-			return -1
-		}
-		if (a[0] > b[0]) {
-			return 1
-		}
+		if (a[0] < b[0]) return -1
+		if (a[0] > b[0]) return 1
 		return 0
 	})
 
@@ -51,7 +45,9 @@ function processAssociations(arr: Array<NumbersArray>): Boolean {
 			const foundElement = hasEqualElements(arr[i], arr[j])
 			if (foundElement) {
 				// объединить найденные группы
-				arr[i] = [...arr[i], ...arr[j].filter(el => el !== foundElement)]
+				arr[i] = [...arr[i], ...arr[j]]
+				// удалим повторяющиеся элементы
+				arr[i] = arr[i].filter((item, idx) => arr[i].indexOf(item) === idx)
 				// удаляем из масиива вторую группу
 				arr.splice(j, 1)
 				return true
@@ -62,15 +58,10 @@ function processAssociations(arr: Array<NumbersArray>): Boolean {
 }
 
 // На входе 2 массива. Функция определяет, есть ли в массиве одинаковые элементы.
-//
-// Возвращает совпадающий элемент, если он найден, иначе - первую строку.
-//
-// Это нужно, чтобы убрать дубликацию элементов при объединении групп.
-function hasEqualElements(arr1: NumbersArray, arr2: NumbersArray): number {
+function hasEqualElements(arr1: NumbersArray, arr2: NumbersArray): boolean {
 	for (let i = 0; i < arr1.length; i++) {
 		const arr2element = arr2.find(el => el === arr1[i])
-		if (arr2element) {
-			return arr2element
-		}
+		if (arr2element) return true
 	}
+	return false
 }
