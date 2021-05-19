@@ -3,7 +3,8 @@
         "module": "commonjs",
         "allowJs": true,
         "outDir": "dist",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "strict": true
     },
     "include": [
         "src/**/*"

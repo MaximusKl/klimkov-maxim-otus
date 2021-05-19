@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "build": "tsc",
         "dev": "nodemon --exec ts-node src/index.ts",
         "start": "tsc && node dist/index.js"
@@ -20,8 +20,11 @@
     },
     "homepage": "https://github.com/MaximusKl/klimkov-maxim-otus#readme",
     "devDependencies": {
+        "@types/jest": "^26.0.23",
+        "jest": "^26.6.3",
         "nodemon": "^2.0.7",
         "prettier": "^2.3.0",
+        "ts-jest": "^26.5.6",
         "ts-node": "^9.1.1"
     },
     "dependencies": {

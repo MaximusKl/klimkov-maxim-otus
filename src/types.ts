@@ -1,3 +1,3 @@
-export type Pair = [number, number]
+export type Pair = [string, string]
 
-export type NumbersArray = Array<number>
+export type StringsArray = Array<string>
