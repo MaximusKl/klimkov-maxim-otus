@@ -1,4 +1,4 @@
-import { Pair, StringsArray } from './types'
+import { Pair } from './types'
 
 // Задача - найти максимальную группу ассоциаций.
 
@@ -8,15 +8,15 @@ import { Pair, StringsArray } from './types'
 
 // Идея - пары объединяются в группы, если в них есть одинаковые элементы
 // Делаем несколько проходов по массиву групп до тех пор, пока не будет найдено ни одного совпадающего элемента
-export function maxItemAssociation(inputArray: Array<Pair>): StringsArray {
+export function maxItemAssociation(inputArray: Array<Pair>): string[] {
 	// делаем копию исходного массива для создания групп ассоциаций
-	let associationArray: Array<StringsArray> = Array.from(inputArray)
+	let associationArray: Array<string[]> = Array.from(inputArray)
 
 	// делам проходы по массиву до тех пор, пока находятся совпадающие элементы
 	while (processAssociations(associationArray)) {}
 
 	// отсортируем массивы по длине группы ассоциаций
-	associationArray.sort((a: StringsArray, b: StringsArray) => {
+	associationArray.sort((a: string[], b: string[]) => {
 		const comp = b.length - a.length
 		// если элементы разные по длине, возвращаем разницу
 		if (comp !== 0) return comp
@@ -36,7 +36,7 @@ export function maxItemAssociation(inputArray: Array<Pair>): StringsArray {
 // Поиск происходит до первого совпадения.
 // Если сопадение есть, группы с совпадающими элементами объединяются и возвращается true.
 // Если сопадений не найдено, возвращается false.
-function processAssociations(arr: Array<StringsArray>): Boolean {
+function processAssociations(arr: Array<string[]>): boolean {
 	// внешний цикл по элементам массива
 	for (let i = 0; i < arr.length - 1; i++) {
 		// внутренний цикл по другим элементам массива
@@ -58,7 +58,7 @@ function processAssociations(arr: Array<StringsArray>): Boolean {
 }
 
 // На входе 2 массива. Функция определяет, есть ли в массиве одинаковые элементы.
-function hasEqualElements(arr1: StringsArray, arr2: StringsArray): boolean {
+function hasEqualElements(arr1: string[], arr2: string[]): boolean {
 	for (let i = 0; i < arr1.length; i++) {
 		const arr2element = arr2.find(el => el === arr1[i])
 		if (arr2element) return true
