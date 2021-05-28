@@ -1,22 +1,22 @@
 {
-  "name": "klimkov-maxim-otus",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MaximusKl/klimkov-maxim-otus.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MaximusKl/klimkov-maxim-otus/issues"
-  },
-  "homepage": "https://github.com/MaximusKl/klimkov-maxim-otus#readme",
-  "devDependencies": {
-    "prettier": "^2.2.1"
-  }
+    "name": "klimkov-maxim-otus",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "tree": "node nodejs-1/main.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MaximusKl/klimkov-maxim-otus.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/MaximusKl/klimkov-maxim-otus/issues"
+    },
+    "homepage": "https://github.com/MaximusKl/klimkov-maxim-otus#readme",
+    "devDependencies": {
+        "prettier": "^2.2.1"
+    }
 }
