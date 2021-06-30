@@ -1,3 +1,4 @@
+// данные покупателей
 export const usersData = [
 	{
 		login: 'maxim',
@@ -13,6 +14,7 @@ export const usersData = [
 	},
 ]
 
+// категории товаров
 export const categoriesData = [
 	{
 		name: 'Food',
@@ -24,6 +26,7 @@ export const categoriesData = [
 	},
 ]
 
+// список товаров
 export const productsData = [
 	{
 		id: 'food_bread',
@@ -48,4 +51,5 @@ export const productsData = [
 	},
 ]
 
+// Объект для хранения корзин покупателей
 export const UsersBuckets = {}
