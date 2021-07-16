@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "target": "ES5",
+        "module": "CommonJS",
+        "downlevelIteration": true,
+        "noImplicitAny": true,
+        "allowJs": true,
+        "jsx": "react",
+        "sourceMap": true,
+        "strict": true,
+        "esModuleInterop": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
