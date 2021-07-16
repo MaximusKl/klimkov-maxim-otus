@@ -1,0 +1,22 @@
+.list {
+    margin: 5px;
+
+    &__header {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    &__item {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 5px;
+        border: blue solid 1px;
+        cursor: pointer;
+    }
+
+    &__empty {
+        text-align: center;
+        color: darkgray;
+    }
+}
+
