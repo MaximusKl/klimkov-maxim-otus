@@ -1,9 +1,9 @@
-import React, { Component, MouseEvent } from 'react'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import '../styles/FavoriteCities.scss'
 
 export interface IFavoriteCitiesProps {
 	cities: Array<string>
-	onClick: (event: MouseEvent<HTMLDivElement>) => void
 }
 
 export class FavoriteCities extends Component<IFavoriteCitiesProps, any> {
@@ -14,9 +14,9 @@ export class FavoriteCities extends Component<IFavoriteCitiesProps, any> {
 				{this.props.cities.length > 0 ? (
 					<div>
 						{this.props.cities.map((city, index) => (
-							<div className="list__item" key={index} onClick={this.props.onClick}>
-								{city}
-							</div>
+							<Link key={index} to={city}>
+								<div className="list__item">{city}</div>
+							</Link>
 						))}
 					</div>
 				) : (

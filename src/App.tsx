@@ -1,152 +1,72 @@
-import React, { Component, FormEvent, MouseEvent } from 'react'
+import React, { createContext, FormEvent, useEffect, useState } from 'react'
 import './styles/app.scss'
 import { FavoriteCities } from './components/FavoriteCities'
 import { CityInputForm } from './components/CityInputForm'
+import { BrowserRouter, Route, useHistory } from 'react-router-dom'
 import { CityWeatherInformation } from './components/CityWeatherInformation'
-import { getWeather } from './api/getWeather'
 
 const LOCALSTORAGE_FAVORITES_KEY = 'weather-app-favorites'
 
-export type CityWeather = {
-	city: string
-	has_got: boolean
-	description: string
-	temp: number
-	temp_min: number
-	temp_max: number
-	country: string
-	humidity: number
-	pressure: number
-	error: string
-}
+export const Context = createContext({ favoriteCities: new Array<string>(), toggleFavorite: (city: string): void => {} })
 
-interface IAppState {
-	currentCity: string
-	favoriteCities: Array<string>
-	weather: CityWeather
-}
+const App = () => {
+	const [currentCity, setCurrentCity] = useState('')
+	const [favoriteCities, setFavoriteCities] = useState(new Array<string>())
+	const history = useHistory()
 
-export class App extends Component<{}, IAppState> {
-	state = {
-		currentCity: '',
-		favoriteCities: new Array<string>(),
-		weather: {
-			city: '',
-			has_got: false,
-			description: '',
-			temp: 0,
-			temp_min: 0,
-			temp_max: 0,
-			country: '',
-			humidity: 0,
-			pressure: 0,
-			error: '',
-		},
-	}
-
-	favoriteClick = (event: MouseEvent<HTMLDivElement>): void => {
-		const currentCity = event.currentTarget.innerText
-		this.setState({ currentCity })
-
-		this.loadWeather(currentCity)
-	}
-
-	inputCity = (event: FormEvent<HTMLInputElement>): void => {
+	function inputCity(event: FormEvent<HTMLInputElement>): void {
 		const currentCity = event.currentTarget.value.toUpperCase()
-		this.setState({ currentCity })
+		setCurrentCity(() => currentCity)
 	}
 
-	loadWeather = (city: string): void => {
-		try {
-			getWeather(city).then(data => {
-				// console.log('data 2:', data)
-
-				if (data.cod === 200) {
-					this.setState({
-						weather: {
-							has_got: true,
-							city,
-							description: data.weather[0].description,
-							temp: data.main.temp,
-							temp_max: data.main.temp_max,
-							temp_min: data.main.temp_min,
-							humidity: data.main.humidity,
-							pressure: data.main.pressure,
-							country: data.sys.country,
-							error: '',
-						},
-					})
-				} else {
-					this.setState({
-						weather: {
-							...this.state.weather,
-							has_got: false,
-							error: data.message,
-						},
-					})
-				}
-			})
-		} catch (error) {
-			this.setState({
-				weather: {
-					...this.state.weather,
-					has_got: false,
-					error,
-				},
-			})
-		}
+	function searchCityClick(): void {
+		history.push(`/${currentCity}`)
 	}
 
-	searchCityClick = (): void => {
-		this.loadWeather(this.state.currentCity)
-	}
-
-	toggleFavorite = (): void => {
-		const t = this.state.favoriteCities.indexOf(this.state.currentCity.toUpperCase())
+	function toggleFavorite(city: string): void {
+		const t = favoriteCities.indexOf(city.toUpperCase())
 		if (t >= 0) {
-			const len = this.state.favoriteCities.length
-			const newFavorites = [...this.state.favoriteCities.slice(0, t), ...this.state.favoriteCities.slice(t + 1, len)]
-			this.setState({
-				favoriteCities: newFavorites,
-			})
+			const len = favoriteCities.length
+			const newFavorites = [...favoriteCities.slice(0, t), ...favoriteCities.slice(t + 1, len)]
+			setFavoriteCities(() => newFavorites)
 			localStorage.setItem(LOCALSTORAGE_FAVORITES_KEY, JSON.stringify(newFavorites))
 		} else {
-			const newCity = this.state.currentCity.toUpperCase()
-			const newFavorites = [...this.state.favoriteCities, newCity]
-			this.setState({
-				favoriteCities: newFavorites,
-			})
+			const newCity = city.toUpperCase()
+			const newFavorites = [...favoriteCities, newCity]
+			setFavoriteCities(() => newFavorites)
 			localStorage.setItem(LOCALSTORAGE_FAVORITES_KEY, JSON.stringify(newFavorites))
 		}
 	}
 
-	componentDidMount() {
+	useEffect(() => {
 		const favorites = localStorage.getItem(LOCALSTORAGE_FAVORITES_KEY)
-		this.setState({
-			favoriteCities: favorites ? JSON.parse(favorites) : [],
-		})
-	}
+		setFavoriteCities(() => (favorites ? JSON.parse(favorites) : []))
+	}, [])
 
-	isFavorite = (city: string): boolean => {
-		return this.state.favoriteCities.indexOf(city) >= 0
-	}
-
-	render() {
-		return (
+	return (
+		<Context.Provider value={{ favoriteCities: favoriteCities, toggleFavorite: toggleFavorite }}>
 			<div className="container">
 				<h1>Weather application</h1>
-				<div className="left_pane">
-					<FavoriteCities cities={this.state.favoriteCities} onClick={this.favoriteClick} />
+				<div className="fav_pane">
+					<FavoriteCities cities={favoriteCities} />
 				</div>
-				<div className="right_pane">
-					<CityInputForm currentCity={this.state.currentCity} onSearchCity={this.searchCityClick} onChange={this.inputCity} />
-					<CityWeatherInformation
-						weather={this.state.weather}
-						onToggleFavoriteCity={this.toggleFavorite}
-						favorite={this.isFavorite(this.state.currentCity)}
-					/>
+				<div className="city_pane">
+					<CityInputForm currentCity={currentCity} onSearchCity={searchCityClick} onChange={inputCity} />
+
+					<Route component={CityWeatherInformation} path="/:city" exact />
 				</div>
 			</div>
-		)
-	}
+		</Context.Provider>
+	)
+	// }
 }
+
+const AppWrapper = () => {
+	return (
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	)
+}
+
+export default AppWrapper
