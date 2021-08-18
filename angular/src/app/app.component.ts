@@ -44,5 +44,6 @@ export class AppComponent implements OnInit {
 		// )
 
 		this.textTranslate.translateText('Hello, world!', this._translateDirection)
+		// this.textTranslate.translateText('Красная-(роза)', TranslateDirection.RuEn)
 	}
 }

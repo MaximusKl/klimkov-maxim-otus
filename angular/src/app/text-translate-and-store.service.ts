@@ -12,7 +12,7 @@ export class TextTranslateAndStoreService {
 	// разбивает текст на слова и переводит каждое слово
 	translateText(text: string, direction: TranslateDirection): void {
 		// Разбить текст на слова
-		const words = text.split(/\W/).filter(word => word)
+		const words = text.split(/[.,\/\\ *+-:;?!"'`|(){}\[\]<>_=]/).filter(word => word)
 
 		words.forEach(word => {
 			// Проверм, есть ли уже слово в словаре
