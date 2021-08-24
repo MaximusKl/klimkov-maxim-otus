@@ -1,0 +1,50 @@
+.go {
+    align-items: center;
+    height: inherit;
+
+    &__process {
+        display: flex;
+        min-height: 280px;
+        flex-direction: column;
+        justify-content: center;
+        border: dotted 1px #cccccc;
+        margin: 10px;
+        background-color: #ffffff;
+    }
+
+    &__begin {
+        min-height: 300px;
+        margin: 10px;
+        border: dotted 1px #cccccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+    }
+
+    &__word {
+        margin: 10px;
+        border: dotted 1px #cccccc;
+        padding: 5px 0;
+        font-size: 30px;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    &__input {
+        border: dotted 1px #cccccc;
+        margin: 10px;
+        padding: 10px;
+
+        input {
+            width: 200px;
+            margin-left: 5px;
+        }
+    }
+
+    &__check {
+        margin: 5px 0;
+    }
+}

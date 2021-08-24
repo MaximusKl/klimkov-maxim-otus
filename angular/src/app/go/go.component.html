@@ -1,0 +1,23 @@
+<div class='go'>
+  <div *ngIf='started; else begin' class='go__process'>
+    <div class='go__word'>
+      <p>Здесь будет выведено слово для проверки</p>
+    </div>
+    <div class='go__input'>
+      <label>
+        Перевод слова
+        <input type='text'>
+      </label>
+    </div>
+    <div class='go__check'>
+      <button>Проверить</button>
+    </div>
+  </div>
+
+  <ng-template #begin>
+    <div class='go__begin'>
+      <button (click)='start()'>Запустить</button>
+    </div>
+  </ng-template>
+</div>
+

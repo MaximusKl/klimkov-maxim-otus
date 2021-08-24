@@ -1,0 +1,30 @@
+.settings {
+    margin: 20px 5px;
+
+    &__translate-lang {
+        border: dotted 1px #cccccc;
+        margin: 10px 5px;
+        padding: 10px 0;
+        background-color: #ffffff;
+    }
+
+    &__words-count {
+        border: dotted 1px #cccccc;
+        margin: 10px 5px;
+        padding: 10px 0;
+        background-color: #ffffff;
+    }
+
+    &__time {
+        border: dotted 1px #cccccc;
+        margin: 10px 5px;
+        padding: 10px 0;
+        background-color: #ffffff;
+    }
+
+    &__select {
+        width: 150px;
+        margin-left: 5px;
+        text-align-last: center;
+    }
+}

@@ -1,2 +1,11 @@
-<h1>Перевод слов</h1>
-<pre>{{storeWords.storedPairs | json}}</pre>
+<div class='container'>
+    <h1>Изучаем {{getTranslateDirectionText()}} слова</h1>
+    <div class='container__main-frame'>
+        <app-tabs [currentTab]='currentTab' [tabs]='tabs' (currentTabEvent)='setCurrentTab($event)'></app-tabs>
+        <div [ngSwitch]='currentTab' class='container__tab-content'>
+            <app-recent *ngSwitchCase="'recent'"></app-recent>
+            <app-go *ngSwitchCase="'go'"></app-go>
+            <app-settings *ngSwitchCase="'settings'"></app-settings>
+        </div>
+    </div>
+</div>
