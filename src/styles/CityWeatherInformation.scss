@@ -1,0 +1,52 @@
+.information {
+    border: black 1px solid;
+    margin: 10px;
+    padding: 5px;
+    text-align: center;
+
+    &__header {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    &__favorite {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        input {
+            margin-left: 10px;
+            height: 16px;
+            width: 16px;
+            padding-top: 5px;
+        }
+    }
+
+    &__city {
+        font-weight: bold;
+        text-decoration: underline;
+        //font-size: 24px;
+    }
+
+    &__item {
+        margin: 5px 10px;
+
+        &_bold {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    }
+}
+
+.error {
+    margin-top: 10px;
+    font-weight: bold;
+    color: red;
+    text-align: center;
+}
+
+.no-data {
+    margin-top: 10px;
+    text-align: center;
+    color: darkgray;
+}
