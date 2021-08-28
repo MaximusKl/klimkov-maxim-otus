@@ -2,6 +2,28 @@
     align-items: center;
     height: inherit;
 
+    &__status {
+        display: flex;
+        //min-height: 280px;
+        justify-content: space-around;
+        border: dotted 1px #cccccc;
+        margin: 5px;
+        padding: 10px;
+        background-color: #ffffff;
+    }
+
+    &__time-status {
+        border: dotted 1px #cccccc;
+        padding: 10px;
+        font-size: 20px;
+    }
+
+    &__word-status {
+        border: dotted 1px #cccccc;
+        padding: 10px;
+        font-size: 20px;
+    }
+
     &__process {
         display: flex;
         min-height: 280px;
@@ -25,17 +47,18 @@
     &__word {
         margin: 10px;
         border: dotted 1px #cccccc;
-        padding: 5px 0;
+        padding: 10px 0;
         font-size: 30px;
 
         p {
             margin: 0;
+            padding: 5px 0;
         }
     }
 
     &__input {
         border: dotted 1px #cccccc;
-        margin: 10px;
+        margin: 5px;
         padding: 10px;
 
         input {

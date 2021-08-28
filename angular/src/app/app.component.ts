@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { WordsStoreService } from './words-store.service'
 import { EN, TranslateDirectionService } from './translate-direction.service'
+import { SettingsService } from './settings.service'
 
 @Component({
 	selector: 'app-root',
@@ -11,7 +12,11 @@ export class AppComponent implements OnInit {
 	tabs: string[] = ['recent', 'go', 'settings']
 	private _currentTab = 'recent'
 
-	constructor(public storeWords: WordsStoreService, public translateDirection: TranslateDirectionService) {}
+	constructor(
+		public storeWords: WordsStoreService,
+		public translateDirection: TranslateDirectionService,
+		private settings: SettingsService
+	) {}
 
 	get currentTab(): string {
 		return this._currentTab
@@ -19,6 +24,7 @@ export class AppComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.storeWords.loadPairs()
+		this.settings.loadSettings()
 
 		// this._translateDirection = TranslateDirection.en
 		this.translateDirection.translateDirection = EN

@@ -2,12 +2,11 @@
   <div class='recent__input-frame'>
     <label class='recent__input'>
         Введите слова
-        <input type='text' [(ngModel)]='text'>
+        <input type='text' [(ngModel)]='text' (keypress)='keyPress($event)'>
     </label>
     <button (click)='translate()'>Перевести</button>
   </div>
   <div class='recent__content'>
-<!--    <p>Здесь будут выведены пары слов для текущего языка</p>-->
     <p *ngFor='let pair of storeWords.getPairsForLang()'>
       <strong>{{pair.originalWord}}</strong> -> {{pair.translatedWord}}
     </p>

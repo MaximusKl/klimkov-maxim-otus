@@ -10,20 +10,16 @@
   <div class='settings__words-count'>
     <label>
       Количество слов в упражнении
-      <select class='settings__select'>
-        <option value='10'>10</option>
-        <option value='15'>15</option>
-        <option value='20'>20</option>
+      <select class='settings__select' [(ngModel)]='settings.settings.goWordsCount' (ngModelChange)='settingsChange()'>
+        <option *ngFor='let val of settings.WordsCountOptions' [value]='val'>{{val}}</option>
       </select>
     </label>
   </div>
   <div class='settings__time'>
     <label>
       Время на упражнение
-      <select class='settings__select'>
-        <option value='10'>10 минут</option>
-        <option value='20'>20 минут</option>
-        <option value='30'>30 минут</option>
+      <select class='settings__select' [(ngModel)]='settings.settings.goTime' (ngModelChange)='settingsChange()'>
+        <option *ngFor=' let val of settings.TimeOptions' [value]='val'>{{val}} минут</option>
       </select>
     </label>
   </div>

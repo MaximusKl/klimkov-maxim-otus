@@ -22,14 +22,20 @@ export class RecentComponent {
 			value => {
 				if (value.responseStatus === 200) {
 					const resultWord = value.responseData.translatedText
-					// this.storeWords.savePair(word, resultWord, direction)
 					this.storeWords.savePair(value.matches[0].segment, resultWord, this.translateDirection.getCurrentCode())
 				}
 			},
 			error => {
-				console.log('Ошибка!', error.message)
+				alert('Ошибка! \n' + error.message)
+				return
 			}
 		)
 		this.text = ''
+	}
+
+	keyPress(e: KeyboardEvent) {
+		if (e.key === 'Enter') {
+			this.translate()
+		}
 	}
 }
