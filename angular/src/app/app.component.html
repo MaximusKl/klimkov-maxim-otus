@@ -1,5 +1,5 @@
 <div class='container'>
-    <h1>Изучаем {{getTranslateDirectionText()}} слова</h1>
+    <h1>Изучаем {{translateDirection.getTranslateDirectionText()}} слова</h1>
     <div class='container__main-frame'>
         <app-tabs [currentTab]='currentTab' [tabs]='tabs' (currentTabEvent)='setCurrentTab($event)'></app-tabs>
         <div [ngSwitch]='currentTab' class='container__tab-content'>

@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { WordsStoreService } from './words-store.service'
-
-export enum TranslateDirection {
-	en = 'ru|en',
-	es = 'ru|es',
-}
+import { EN, TranslateDirectionService } from './translate-direction.service'
 
 @Component({
 	selector: 'app-root',
@@ -12,12 +8,10 @@ export enum TranslateDirection {
 	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-	private _translateDirection: TranslateDirection = TranslateDirection.en // текущее направление перевода
-
 	tabs: string[] = ['recent', 'go', 'settings']
 	private _currentTab = 'recent'
 
-	constructor(public storeWords: WordsStoreService) {}
+	constructor(public storeWords: WordsStoreService, public translateDirection: TranslateDirectionService) {}
 
 	get currentTab(): string {
 		return this._currentTab
@@ -26,17 +20,10 @@ export class AppComponent implements OnInit {
 	ngOnInit(): void {
 		this.storeWords.loadPairs()
 
-		this._translateDirection = TranslateDirection.en
-	}
+		// this._translateDirection = TranslateDirection.en
+		this.translateDirection.translateDirection = EN
 
-	getTranslateDirectionText(): string {
-		switch (this._translateDirection) {
-			case TranslateDirection.en:
-				return 'английские'
-			case TranslateDirection.es:
-				return 'испанские'
-		}
-		return 'неизвестные'
+		// console.log(this.translateDirection.toArray())
 	}
 
 	setCurrentTab(tab: string) {

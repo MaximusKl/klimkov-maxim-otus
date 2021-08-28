@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
 import { TranslateWordService } from './translate-word.service'
 import { WordsStoreService } from './words-store.service'
-import { TranslateDirection } from './app.component'
+import { from, Observable } from 'rxjs'
+import { filter, switchMap } from 'rxjs/operators'
 
 @Injectable({
 	providedIn: 'root',
@@ -10,33 +11,22 @@ export class TextTranslateAndStoreService {
 	constructor(private translateWord: TranslateWordService, private wordsStore: WordsStoreService) {}
 
 	// разбивает текст на слова и переводит каждое слово
-	translateText(text: string, direction: TranslateDirection): void {
+	translateText(text: string, direction: string): Observable<any> {
 		// Разбить текст на слова
 		const words = text.split(/[.,\/\\ *+-:;?!"'`|(){}\[\]<>_=]/).filter(word => word)
 
-		words.forEach(word => {
-			// Проверм, есть ли уже слово в словаре
-			const exists = this.wordsStore.storedPairs.find(value => value.originalWord === word.toLowerCase())
-			if (exists) {
-				return
-			}
-
-			// Если нет - запросим перевод
-			this.translateWord.translate(word, direction).subscribe(
-				value => {
-					// console.log(value)
-					if (value.responseStatus === 200) {
-						const resultWord = value.responseData.translatedText
-						this.wordsStore.savePair(word, resultWord, direction)
-					}
-				},
-				error => {
-					console.log(error)
-				},
-				() => {
-					// console.log('complete')
-				}
-			)
-		})
+		return from(words).pipe(
+			filter(word => {
+				if (
+					this.wordsStore.storedPairs.find(
+						value => value.originalWord === word.toLowerCase() && value.translateDirection === direction
+					)
+				) {
+					// TODO Здесь можно что-то сделать со списком недавних слов, например переместить слово вверх списка
+					return false
+				} else return true
+			}),
+			switchMap(word => this.translateWord.translate(word, direction))
+		)
 	}
 }

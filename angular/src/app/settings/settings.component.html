@@ -2,8 +2,8 @@
   <div class='settings__translate-lang'>
     <label>
       Язык
-      <select class='settings__select'>
-        <option value='ru|en'>Английский</option>
+      <select class='settings__select' [(ngModel)]='translateDirection.translateDirection'>
+        <option *ngFor='let val of directions' [value]='val.direction'>{{val.strForSettings | titlecase}}</option>
       </select>
     </label>
   </div>

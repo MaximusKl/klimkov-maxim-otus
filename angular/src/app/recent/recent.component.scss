@@ -27,10 +27,16 @@
         margin: 0 10px 10px 10px;
         min-height: 250px;
         border: dotted 1px #cccccc;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        //display: flex;
+        //flex-direction: column;
+        //justify-content: center;
         background-color: #ffffff;
+        text-align: left;
+        padding: 15px;
+
+        p {
+            margin: 0;
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 <div class='tabs'>
     <div class='tab' *ngFor='let tab of tabs' (click)='setTab(tab)' [class.active]='currentTab === tab'>
-        {{tab | tabName | titlecase}}
+        {{tab | tabName  | titlecase}}
     </div>
 </div>

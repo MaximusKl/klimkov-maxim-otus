@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { TranslateDirectionService } from './translate-direction.service'
 
 const storePrefix: string = 'WordTranslateApp'
 
@@ -12,25 +13,29 @@ export interface IPairForStore {
 	providedIn: 'root',
 })
 export class WordsStoreService {
-	private _storedPairs: IPairForStore[] = [] // Массив слов (последних)
+	storedPairs: IPairForStore[] = [] // Массив слов (последних)
 
-	constructor() {}
+	constructor(private translateDirection: TranslateDirectionService) {}
 
 	// Возвращает сохранённые пары слов
-	get storedPairs(): IPairForStore[] {
-		return this._storedPairs
+	// get storedPairs(): IPairForStore[] {
+	// 	return this._storedPairs
+	// }
+
+	getPairsForLang() {
+		return this.storedPairs.filter(pair => pair.translateDirection === this.translateDirection.getCurrentCode())
 	}
 
 	// Приватная функция для сохранения массива слов в localStorage
 	private storePairs(): void {
-		localStorage.setItem(storePrefix + 'Pairs', JSON.stringify(this._storedPairs))
+		localStorage.setItem(storePrefix + 'Pairs', JSON.stringify(this.storedPairs))
 	}
 
 	// Загружает пары слов из localStorage
 	loadPairs(): void {
 		const pairs = localStorage.getItem(storePrefix + 'Pairs')
 		if (pairs) {
-			this._storedPairs = JSON.parse(pairs) as IPairForStore[]
+			this.storedPairs = JSON.parse(pairs) as IPairForStore[]
 		}
 	}
 
@@ -42,10 +47,7 @@ export class WordsStoreService {
 			translateDirection,
 		}
 
-		// const exists = this._storedPairs.find(value => value.originalWord === newPair.originalWord)
-		// if (!exists) {
-		this._storedPairs.push(newPair) // TODO Может, использовать unshift?
+		this.storedPairs.unshift(newPair)
 		this.storePairs()
-		// }
 	}
 }
