@@ -1,0 +1,26 @@
+.pair {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: dotted 1px #cccccc;
+
+    button {
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.pair:hover {
+    background-color: #efffff;
+
+    .hide {
+        display: block;
+    }
+}

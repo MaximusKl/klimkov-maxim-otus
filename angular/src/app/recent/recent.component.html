@@ -7,8 +7,7 @@
     <button (click)='translate()'>Перевести</button>
   </div>
   <div class='recent__content'>
-    <p *ngFor='let pair of storeWords.getPairsForLang()'>
-      <strong>{{pair.originalWord}}</strong> -> {{pair.translatedWord}}
-    </p>
+    <app-pair-of-words *ngFor='let pair of storeWords.getPairsForLang()' [pair]='pair'>
+    </app-pair-of-words>
   </div>
 </div>

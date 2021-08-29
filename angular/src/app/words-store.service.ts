@@ -50,4 +50,12 @@ export class WordsStoreService {
 		this.storedPairs.unshift(newPair)
 		this.storePairs()
 	}
+
+	// Удаляет пару из словаря
+	removePair(pairToRemove: IPairForStore): void {
+		this.storedPairs = this.storedPairs.filter(
+			pair => pair.originalWord !== pairToRemove.originalWord || pair.translateDirection !== pairToRemove.translateDirection
+		)
+		this.storePairs()
+	}
 }
