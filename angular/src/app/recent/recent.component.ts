@@ -18,7 +18,7 @@ export class RecentComponent {
 	) {}
 
 	translate() {
-		this.translateService.translateText(this.text, this.translateDirection.getCurrentCode()).subscribe(
+		const sub = this.translateService.translateText(this.text, this.translateDirection.getCurrentCode()).subscribe(
 			value => {
 				if (value.responseStatus === 200) {
 					const resultWord = value.responseData.translatedText
@@ -27,7 +27,10 @@ export class RecentComponent {
 			},
 			error => {
 				alert('Ошибка! \n' + error.message)
-				return
+				sub.unsubscribe()
+			},
+			() => {
+				sub.unsubscribe()
 			}
 		)
 		this.text = ''

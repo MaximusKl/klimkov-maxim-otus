@@ -37,6 +37,12 @@ export class GoComponent {
 		this.testWords = arr
 		this.secondsLeft = this.settings.settings.goTime * 60
 		const testTimerSubs = interval(1000).subscribe(() => {
+			// Если тест уже завершён
+			if (!this.started) {
+				testTimerSubs.unsubscribe()
+				return
+			}
+
 			this.secondsLeft--
 			if (this.secondsLeft < 0) {
 				alert('Тест провален!')
@@ -59,8 +65,8 @@ export class GoComponent {
 
 		this.currentWordIndex++
 		if (this.currentWordIndex >= this.testWords.length) {
-			alert('Тест окончен')
 			this.started = false
+			alert('Тест окончен')
 		}
 	}
 
