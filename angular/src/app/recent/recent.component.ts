@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { TextTranslateAndStoreService } from '../text-translate-and-store.service'
 import { TranslateDirectionService } from '../translate-direction.service'
 import { WordsStoreService } from '../words-store.service'
+import { Subscription } from 'rxjs'
 
 @Component({
 	selector: 'app-recent',
@@ -10,6 +11,7 @@ import { WordsStoreService } from '../words-store.service'
 })
 export class RecentComponent {
 	text: string = ''
+	sub?: Subscription
 
 	constructor(
 		public storeWords: WordsStoreService,
@@ -18,7 +20,7 @@ export class RecentComponent {
 	) {}
 
 	translate() {
-		const sub = this.translateService.translateText(this.text, this.translateDirection.getCurrentCode()).subscribe(
+		this.sub = this.translateService.translateText(this.text, this.translateDirection.getCurrentCode()).subscribe(
 			value => {
 				if (value.responseStatus === 200) {
 					const resultWord = value.responseData.translatedText
@@ -27,13 +29,13 @@ export class RecentComponent {
 			},
 			error => {
 				alert('Ошибка! \n' + error.message)
-				sub.unsubscribe()
+				if (this.sub) this.sub.unsubscribe()
 			},
 			() => {
-				sub.unsubscribe()
+				if (this.sub) this.sub.unsubscribe()
+				this.text = ''
 			}
 		)
-		this.text = ''
 	}
 
 	keyPress(e: KeyboardEvent) {
