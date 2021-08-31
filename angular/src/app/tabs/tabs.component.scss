@@ -5,9 +5,12 @@
 
 .tab {
     width: 33%;
+    display: block;
     border: dotted 1px #ccc;
     cursor: pointer;
     background-color: #efffff;
+    text-decoration: none;
+    color: black;
 
     &.active {
         background-color: #c6ffff;

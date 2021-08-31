@@ -1,11 +1,13 @@
 <div class='container'>
     <h1>Изучаем {{translateDirection.getTranslateDirectionText()}} слова</h1>
     <div class='container__main-frame'>
-        <app-tabs [currentTab]='currentTab' [tabs]='tabs' (currentTabEvent)='setCurrentTab($event)'></app-tabs>
+<!--        <app-tabs [currentTab]='currentTab' [tabs]='tabs' (currentTabEvent)='setCurrentTab($event)'></app-tabs>-->
+        <app-tabs></app-tabs>
         <div [ngSwitch]='currentTab' class='container__tab-content'>
-            <app-recent *ngSwitchCase="'recent'"></app-recent>
-            <app-go *ngSwitchCase="'go'"></app-go>
-            <app-settings *ngSwitchCase="'settings'"></app-settings>
+<!--            <app-recent *ngSwitchCase="'recent'"></app-recent>-->
+          <!--            <app-go *ngSwitchCase="'go'"></app-go>-->
+          <!--            <app-settings *ngSwitchCase="'settings'"></app-settings>-->
+          <router-outlet></router-outlet>
         </div>
     </div>
 </div>

@@ -9,7 +9,7 @@ import { RecentComponent } from './recent/recent.component'
 import { GoComponent } from './go/go.component'
 import { SettingsComponent } from './settings/settings.component'
 import { TabNamePipe } from './tab-name.pipe'
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'
 import { PairOfWordsComponent } from './pair-of-words/pair-of-words.component'
 
 @NgModule({
