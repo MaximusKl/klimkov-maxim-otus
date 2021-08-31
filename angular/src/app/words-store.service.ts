@@ -13,29 +13,29 @@ export interface IPairForStore {
 	providedIn: 'root',
 })
 export class WordsStoreService {
-	storedPairs: IPairForStore[] = [] // Массив слов (последних)
+	private _storedPairs: IPairForStore[] = [] // Массив слов (последних)
 
 	constructor(private translateDirection: TranslateDirectionService) {}
 
 	// Возвращает сохранённые пары слов
-	// get storedPairs(): IPairForStore[] {
-	// 	return this._storedPairs
-	// }
+	get storedPairs(): IPairForStore[] {
+		return this._storedPairs
+	}
 
 	getPairsForLang() {
-		return this.storedPairs.filter(pair => pair.translateDirection === this.translateDirection.getCurrentCode())
+		return this._storedPairs.filter(pair => pair.translateDirection === this.translateDirection.getCurrentCode())
 	}
 
 	// Приватная функция для сохранения массива слов в localStorage
 	private storePairs(): void {
-		localStorage.setItem(storePrefix + 'Pairs', JSON.stringify(this.storedPairs))
+		localStorage.setItem(storePrefix + 'Pairs', JSON.stringify(this._storedPairs))
 	}
 
 	// Загружает пары слов из localStorage
 	loadPairs(): void {
 		const pairs = localStorage.getItem(storePrefix + 'Pairs')
 		if (pairs) {
-			this.storedPairs = JSON.parse(pairs) as IPairForStore[]
+			this._storedPairs = JSON.parse(pairs) as IPairForStore[]
 		}
 	}
 
@@ -53,7 +53,7 @@ export class WordsStoreService {
 
 	// Удаляет пару из словаря
 	removePair(pairToRemove: IPairForStore): void {
-		this.storedPairs = this.storedPairs.filter(
+		this._storedPairs = this.storedPairs.filter(
 			pair => pair.originalWord !== pairToRemove.originalWord || pair.translateDirection !== pairToRemove.translateDirection
 		)
 		this.storePairs()
