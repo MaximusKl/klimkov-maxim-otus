@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core'
 
+const translateDirectionPrefix: string = 'WordTranslateAppTranslateDirection'
+
 export const EN = 'en'
 export const ES = 'es'
 
@@ -21,6 +23,9 @@ export class TranslateDirectionService {
 	constructor() {
 		this.directions.set(EN, { direction: EN, code: 'ru|en', strForHeader: 'английские', strForSettings: 'английский' })
 		this.directions.set(ES, { direction: ES, code: 'ru|es', strForHeader: 'испанские', strForSettings: 'испанский' })
+
+		const dir = localStorage.getItem(translateDirectionPrefix)
+		if (dir) this._translateDirection = dir
 	}
 
 	get translateDirection(): string {
@@ -29,6 +34,7 @@ export class TranslateDirectionService {
 
 	set translateDirection(value: string) {
 		this._translateDirection = value
+		localStorage.setItem(translateDirectionPrefix, this._translateDirection)
 	}
 
 	getCurrentCode(): string {

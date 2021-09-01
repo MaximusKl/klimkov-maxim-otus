@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { WordsStoreService } from './words-store.service'
-import { EN, TranslateDirectionService } from './translate-direction.service'
+import { TranslateDirectionService } from './translate-direction.service'
 import { SettingsService } from './settings.service'
 
 @Component({
@@ -18,7 +18,5 @@ export class AppComponent implements OnInit {
 	ngOnInit(): void {
 		this.storeWords.loadPairs()
 		this.settings.loadSettings()
-
-		this.translateDirection.translateDirection = EN
 	}
 }
