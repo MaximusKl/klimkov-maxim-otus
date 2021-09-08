@@ -16,9 +16,8 @@ export interface ITranslateDirection {
 	providedIn: 'root',
 })
 export class TranslateDirectionService {
-	// private directions: Map<string, ITranslateDirection>
 	private directions = new Map<string, ITranslateDirection>()
-	private _translateDirection: string = EN // TranslateDirection.en // текущее направление перевода
+	private _translateDirection: string = EN // текущее направление перевода
 
 	constructor() {
 		this.directions.set(EN, { direction: EN, code: 'ru|en', strForHeader: 'английские', strForSettings: 'английский' })
@@ -37,12 +36,14 @@ export class TranslateDirectionService {
 		localStorage.setItem(translateDirectionPrefix, this._translateDirection)
 	}
 
+	// Возвращает код текущего языка для сервиса перевода
 	getCurrentCode(): string {
 		const dir = this.directions.get(this._translateDirection)
 		if (dir) return dir.code
 		return ''
 	}
 
+	// Возвращает текстовое представление языка для вывода в заголовке приложения
 	getTranslateDirectionText(): string {
 		const dir = this.directions.get(this._translateDirection)
 		if (dir) {
@@ -52,6 +53,7 @@ export class TranslateDirectionService {
 		return 'неизвестные'
 	}
 
+	// Возвращает массив значений из Map
 	toArray(): ITranslateDirection[] {
 		return Array.from(this.directions.values())
 	}

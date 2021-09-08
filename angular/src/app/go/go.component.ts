@@ -4,79 +4,83 @@ import { SettingsService } from '../settings.service'
 import { interval } from 'rxjs'
 
 @Component({
-	selector: 'app-go',
-	templateUrl: './go.component.html',
-	styleUrls: ['./go.component.scss'],
+    selector: 'app-go',
+    templateUrl: './go.component.html',
+    styleUrls: ['./go.component.scss'],
 })
 export class GoComponent {
-	started: boolean = false
-	currentWordIndex: number = 0
-	testWords: IPairForStore[] = []
-	inputWord: string = ''
-	secondsLeft: number = 0
+    started: boolean = false
+    currentWordIndex: number = 0
+    testWords: IPairForStore[] = []
+    inputWord: string = ''
+    secondsLeft: number = 0
 
-	constructor(private wordsStore: WordsStoreService, private settings: SettingsService) {}
+    constructor (private wordsStore: WordsStoreService, private settings: SettingsService) {}
 
-	start() {
-		const arr = this.wordsStore.getPairsForLang()
+    // начинает упражнение. Внутри создаёт стрим из интервала для проверки оставшегося времени на упражнение
+    start () {
+        const arr = this.wordsStore.getPairsForLang()
 
-		// проверка
-		if (arr.length < this.settings.settings.goWordsCount) {
-			alert(`Слов в словаре меньше, чем количество слов для упражнения!`)
-			return
-		}
+        // проверка
+        if (arr.length < this.settings.settings.goWordsCount) {
+            alert(`Слов в словаре меньше, чем количество слов для упражнения!`)
+            return
+        }
 
-		// Отобрать слова
-		const numberToDelete = arr.length - this.settings.settings.goWordsCount
-		for (let i = 0; i < numberToDelete; i++) {
-			const randIndex = Math.random() * arr.length
-			arr.splice(randIndex, 1)
-		}
+        // Отобрать слова
+        const numberToDelete = arr.length - this.settings.settings.goWordsCount
+        for (let i = 0; i < numberToDelete; i++) {
+            const randIndex = Math.random() * arr.length
+            arr.splice(randIndex, 1)
+        }
 
-		this.currentWordIndex = 0
-		this.testWords = arr
-		this.secondsLeft = this.settings.settings.goTime * 60
-		const testTimerSubs = interval(1000).subscribe(() => {
-			// Если тест уже завершён
-			if (!this.started) {
-				testTimerSubs.unsubscribe()
-				return
-			}
+        this.currentWordIndex = 0
+        this.testWords = arr
+        this.secondsLeft = this.settings.settings.goTime * 60
+        const testTimerSubs = interval(1000).subscribe(() => {
+            // Если тест уже завершён
+            if (!this.started) {
+                testTimerSubs.unsubscribe()
+                return
+            }
 
-			this.secondsLeft--
-			if (this.secondsLeft < 0) {
-				alert('Тест провален!')
-				this.started = false
-				testTimerSubs.unsubscribe()
-			}
-		})
-		this.started = true
-	}
+            this.secondsLeft--
+            if (this.secondsLeft < 0) {
+                alert('Тест провален!')
+                this.started = false
+                testTimerSubs.unsubscribe()
+            }
+        })
+        this.started = true
+    }
 
-	checkWord() {
-		const currWord = this.testWords[this.currentWordIndex].translatedWord
-		if (currWord === this.inputWord) {
-			alert('Правильно!')
-		} else {
-			alert(`Неправильно, слово переводится как "${currWord}"`)
-		}
+    // Проверка слова и вывод следующего
+    checkWord () {
+        const currWord = this.testWords[this.currentWordIndex].translatedWord
+        if (currWord === this.inputWord) {
+            alert('Правильно!')
+        } else {
+            alert(`Неправильно, слово переводится как "${currWord}"`)
+        }
 
-		this.inputWord = ''
+        this.inputWord = ''
 
-		this.currentWordIndex++
-		if (this.currentWordIndex >= this.testWords.length) {
-			this.started = false
-			alert('Тест окончен')
-		}
-	}
+        this.currentWordIndex++
+        if (this.currentWordIndex >= this.testWords.length) {
+            this.started = false
+            alert('Тест окончен')
+        }
+    }
 
-	keyPress(e: KeyboardEvent) {
-		if (e.key === 'Enter') {
-			this.checkWord()
-		}
-	}
+    // вызывает перевод текста по нажатию `Enter` на инпуте
+    keyPress (e: KeyboardEvent) {
+        if (e.key === 'Enter') {
+            this.checkWord()
+        }
+    }
 
-	getMinutesLeft() {
-		return Math.floor(this.secondsLeft / 60)
-	}
+    // возвращает количество оставшихся минут для вывода в форме
+    getMinutesLeft () {
+        return Math.floor(this.secondsLeft / 60)
+    }
 }

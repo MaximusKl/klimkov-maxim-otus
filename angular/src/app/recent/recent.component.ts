@@ -19,6 +19,7 @@ export class RecentComponent {
 		private translateDirection: TranslateDirectionService
 	) {}
 
+	// функция вызывает стрим перевода текста и подписывается на результаты
 	translate() {
 		this.sub = this.translateService.translateText(this.text, this.translateDirection.getCurrentCode()).subscribe(
 			value => {
@@ -38,6 +39,7 @@ export class RecentComponent {
 		)
 	}
 
+	// вызывает перевод текста по нажатию `Enter` на инпуте
 	keyPress(e: KeyboardEvent) {
 		if (e.key === 'Enter') {
 			this.translate()

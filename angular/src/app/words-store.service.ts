@@ -22,7 +22,8 @@ export class WordsStoreService {
 		return this._storedPairs
 	}
 
-	getPairsForLang() {
+	// Возвращает список слов для текущего языка
+	getPairsForLang(): IPairForStore[] {
 		return this._storedPairs.filter(pair => pair.translateDirection === this.translateDirection.getCurrentCode())
 	}
 
