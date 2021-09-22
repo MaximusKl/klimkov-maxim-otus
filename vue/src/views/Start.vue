@@ -6,7 +6,60 @@
 			<p>Ваш последний результат - решено {{ solved }} из {{ total }}.</p>
 			<p>Общая точность {{ precision }}%.</p>
 		</div>
-		<b-form-input type="range" max="15"></b-form-input>
+		<div class="settings">
+			<h2>Настройки</h2>
+			<div class="settings__input">
+				<div class="settings__input-range">
+					<span>{{ minDuration }}</span>
+					<span>{{ maxDuration }}</span>
+				</div>
+				<input
+					type="range"
+					:max="maxDuration"
+					:min="minDuration"
+					v-model="duration"
+				/>
+				<small>Длительность {{ duration }} минут</small>
+			</div>
+			<div class="settings__input">
+				<div class="settings__input-range">
+					<span>{{ minDifficulty }}</span>
+					<span>{{ maxDifficulty }}</span>
+				</div>
+				<input
+					type="range"
+					:max="maxDifficulty"
+					:min="minDifficulty"
+					v-model="difficulty"
+				/>
+				<small>Сложность {{ difficulty }}</small>
+			</div>
+			<div class="settings__checkbox-group">
+				<label class="settings__checkbox">
+					<input type="checkbox" v-model="adding" />
+					Суммирование
+				</label>
+				<label class="settings__checkbox">
+					<input type="checkbox" v-model="subtraction" />
+					Разность
+				</label>
+				<label class="settings__checkbox">
+					<input type="checkbox" v-model="multiplying" />
+					Умножение
+				</label>
+				<label class="settings__checkbox">
+					<input type="checkbox" v-model="division" />
+					Деление
+				</label>
+				<label class="settings__checkbox">
+					<input type="checkbox" v-model="exponentiation" />
+					Возведение в степень
+				</label>
+			</div>
+		</div>
+		<div class="btn-group">
+			<button class="btn-group__play-btn">Play!</button>
+		</div>
 	</div>
 </template>
 
@@ -19,6 +72,17 @@
 				solved: 10,
 				total: 25,
 				precision: 80,
+				duration: 7,
+				minDuration: 0,
+				maxDuration: 15,
+				difficulty: 5,
+				minDifficulty: 0,
+				maxDifficulty: 10,
+				adding: true,
+				subtraction: false,
+				multiplying: false,
+				division: true,
+				exponentiation: true,
 			}
 		},
 	}
@@ -30,19 +94,80 @@
 		margin: 0 auto;
 		padding-top: 50px;
 		text-align: left;
+		font-style: normal;
+		font-weight: 400;
 	}
 
 	h1 {
 		font-size: 26px;
-		font-style: normal;
-		font-weight: 400;
+		font-style: inherit;
+		font-weight: inherit;
+	}
+
+	h2 {
+		font-size: 18px;
+		font-style: inherit;
+		font-weight: inherit;
 	}
 
 	.summary {
 		font-size: 14px;
-		font-style: normal;
-		font-weight: 400;
 		margin-top: 40px;
 		line-height: 1.3;
+	}
+
+	.settings {
+		margin-top: 60px;
+	}
+
+	.settings__input {
+		margin: 20px 0;
+		width: 200px;
+	}
+
+	.settings__input > input {
+		display: block;
+		width: 100%;
+		/*margin: 10px 0 5px;*/
+		margin-bottom: 5px;
+	}
+
+	.settings__input-range {
+		width: inherit;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.settings__input-range span {
+		font-size: 14px;
+		font-style: inherit;
+		font-weight: inherit;
+	}
+
+	.settings__checkbox-group {
+		margin-top: 30px;
+	}
+
+	.settings__checkbox {
+		display: block;
+		height: 30px;
+		font-size: 14px;
+		font-style: inherit;
+		font-weight: inherit;
+	}
+
+	.btn-group {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 40px;
+	}
+
+	.btn-group__play-btn {
+		width: 80px;
+		height: 40px;
+		background-color: #fff;
+		border: 1px solid #eeeeee;
+		box-shadow: 0 2px #ddd;
+		cursor: pointer;
 	}
 </style>
