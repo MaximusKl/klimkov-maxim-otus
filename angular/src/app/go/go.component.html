@@ -1,0 +1,27 @@
+<div class="go">
+	<div *ngIf="started; else begin" class="go__process">
+		<div class="go__status">
+			<div class="go__time-status">Осталось {{ getMinutesLeft() | number: '2.0-0' }}:{{ secondsLeft % 60 | number: '2.0-0' }}</div>
+			<div class="go__word-status">Слово {{ currentWordIndex + 1 }} из {{ testWords.length }}</div>
+		</div>
+
+		<div class="go__word">
+			<p>{{ testWords[currentWordIndex].originalWord }}</p>
+		</div>
+		<div class="go__input">
+			<label>
+				Перевод слова
+				<input type="text" [(ngModel)]="inputWord" (keypress)="keyPress($event)" />
+			</label>
+		</div>
+		<div class="go__check">
+			<button (click)="checkWord()">Проверить</button>
+		</div>
+	</div>
+
+	<ng-template #begin>
+		<div class="go__begin">
+			<button (click)="start()">Запустить</button>
+		</div>
+	</ng-template>
+</div>

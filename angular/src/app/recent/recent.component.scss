@@ -1,0 +1,38 @@
+.recent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__input-frame {
+        height: 50px;
+        margin: 10px;
+        text-align: left;
+        border: dotted 1px #cccccc;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #ffffff;
+    }
+
+    &__input {
+        display: inline-block;
+
+        input {
+            width: 300px;
+            margin-left: 5px;
+        }
+    }
+
+    &__content {
+        margin: 0 10px 10px 10px;
+        min-height: 250px;
+        border: dotted 1px #cccccc;
+        //display: flex;
+        //flex-direction: column;
+        //justify-content: center;
+        background-color: #ffffff;
+        text-align: left;
+        padding: 15px;
+    }
+}
+

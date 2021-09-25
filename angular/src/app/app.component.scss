@@ -1,0 +1,12 @@
+.container {
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+
+    &__tab-content {
+        min-height: 300px;
+        border: dotted 1px #cccccc;
+        background-color: #f7ffff;
+    }
+}
+
