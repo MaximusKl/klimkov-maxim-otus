@@ -58,7 +58,7 @@
 			</div>
 		</div>
 		<div class="btn-group">
-			<button class="btn-group__play-btn">Play!</button>
+			<button class="btn-group__play-btn" @click="start">Play!</button>
 		</div>
 	</div>
 </template>
@@ -84,6 +84,11 @@
 				division: true,
 				exponentiation: true,
 			}
+		},
+		methods: {
+			start() {
+				this.$router.push('/game')
+			},
 		},
 	}
 </script>
@@ -169,5 +174,10 @@
 		border: 1px solid #eeeeee;
 		box-shadow: 0 2px #ddd;
 		cursor: pointer;
+	}
+
+	.btn-group__play-btn:active {
+		box-shadow: none;
+		transform: translateY(2px);
 	}
 </style>
