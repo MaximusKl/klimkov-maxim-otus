@@ -78,17 +78,58 @@
 				difficulty: 5,
 				minDifficulty: 0,
 				maxDifficulty: 10,
-				adding: true,
-				subtraction: false,
-				multiplying: false,
-				division: true,
-				exponentiation: true,
+				adding: 'true',
+				subtraction: 'false',
+				multiplying: 'false',
+				division: 'true',
+				exponentiation: 'true',
 			}
 		},
 		methods: {
 			start() {
 				this.$router.push('/game')
 			},
+		},
+		watch: {
+			duration() {
+				this.$root.duration = this.duration
+			},
+			difficulty() {
+				this.$root.difficulty = this.difficulty
+			},
+			adding() {
+				this.$root.adding = '' + this.adding
+			},
+			subtraction() {
+				this.$root.subtraction = '' + this.subtraction
+			},
+			multiplying() {
+				this.$root.multiplying = '' + this.multiplying
+			},
+			division() {
+				this.$root.division = '' + this.division
+			},
+			exponentiation() {
+				this.$root.exponentiation = '' + this.exponentiation
+			},
+		},
+		mounted() {
+			this.duration = this.$root.duration || this.duration
+			this.difficulty = this.$root.difficulty || this.difficulty
+			this.adding = this.$root.adding || '' + this.adding
+			this.subtraction = this.$root.subtraction || '' + this.subtraction
+			this.multiplying = this.$root.multiplying || '' + this.multiplying
+			this.division = this.$root.division || '' + this.division
+			this.exponentiation =
+				this.$root.exponentiation || '' + this.exponentiation
+
+			this.$root.duration = this.duration
+			this.$root.difficulty = this.difficulty
+			this.$root.adding = '' + this.adding
+			this.$root.subtraction = '' + this.subtraction
+			this.$root.multiplying = '' + this.multiplying
+			this.$root.division = '' + this.division
+			this.$root.exponentiation = '' + this.exponentiation
 		},
 	}
 </script>

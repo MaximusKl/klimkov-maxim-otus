@@ -11,7 +11,7 @@
 			/>
 		</div>
 		<div class="task">
-			<p>__ * __ * __ = 84240?</p>
+			<p>{{ num1 }} * {{ num2 }} * {{ num3 }} = 84240?</p>
 		</div>
 		<div class="buttons">
 			<div class="digits__without-zero">
@@ -48,6 +48,9 @@
 				secondsTotal: 70,
 				secondsLeft: 0,
 				interval: null,
+				num1: 0,
+				num2: 0,
+				num3: 0,
 			}
 		},
 		methods: {
@@ -56,6 +59,11 @@
 			},
 		},
 		mounted() {
+			this.num1 = Math.floor(Math.random() * 100)
+			this.num2 = Math.floor(Math.random() * 100)
+			this.num3 = Math.floor(Math.random() * 100)
+
+			this.secondsTotal = this.$root.duration * 60
 			this.secondsLeft = this.secondsTotal
 			this.interval = setInterval(() => {
 				this.secondsLeft--
