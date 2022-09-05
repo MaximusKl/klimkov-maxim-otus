@@ -1,0 +1,26 @@
+<div class='settings'>
+  <div class='settings__translate-lang'>
+    <label>
+      Язык
+      <select class='settings__select' [(ngModel)]='translateDirection.translateDirection'>
+        <option *ngFor='let val of directions' [value]='val.direction'>{{val.strForSettings | titlecase}}</option>
+      </select>
+    </label>
+  </div>
+  <div class='settings__words-count'>
+    <label>
+      Количество слов в упражнении
+      <select class='settings__select' [(ngModel)]='settings.settings.goWordsCount' (ngModelChange)='settingsChange()'>
+        <option *ngFor='let val of settings.WordsCountOptions' [value]='val'>{{val}}</option>
+      </select>
+    </label>
+  </div>
+  <div class='settings__time'>
+    <label>
+      Время на упражнение
+      <select class='settings__select' [(ngModel)]='settings.settings.goTime' (ngModelChange)='settingsChange()'>
+        <option *ngFor=' let val of settings.TimeOptions' [value]='val'>{{val}} минут</option>
+      </select>
+    </label>
+  </div>
+</div>

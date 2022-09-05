@@ -1,0 +1,18 @@
+.tabs {
+    display: flex;
+    justify-content: center;
+}
+
+.tab {
+    width: 33%;
+    border: dotted 1px #ccc;
+    cursor: pointer;
+    background-color: #efffff;
+
+    &.active {
+        background-color: #c6ffff;
+        color: darkred;
+        border: solid 1px black;
+    }
+}
+
